@@ -1,0 +1,41 @@
+# Node modules (si usas npm o yarn)
+node_modules/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de entorno o config sensibles
+.env
+.env.local
+.env.*.local
+
+# Salidas de compilación
+dist/
+build/
+out/
+
+# SASS/SCSS compilado (si solo subes el SASS original)
+*.css
+*.css.map
+
+# Archivos temporales de editores
+.vscode/
+.idea/
+*.log
+*.tmp
+*.swp
+
+# Archivos de sistema operativo
+*.bak
+*.old
+*.orig
+
+# Ignorar imágenes grandes o temporales (opcional)
+*.psd
+*.ai
+*.sketch
+*.zip
+
+
+

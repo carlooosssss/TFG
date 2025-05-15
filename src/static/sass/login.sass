@@ -1,0 +1,163 @@
+html, body
+  margin: 0
+  padding: 0
+  height: 100%
+  box-sizing: border-box
+
+body
+  display: flex
+  flex-direction: column
+  color: #4A311D
+  font-family: 'Instrument Sans', sans-serif
+
+header
+  background-color: #FCF5E5
+  padding: 1rem 2rem
+  height: 10vh  // Fijamos un tamaño mínimo para el header
+  display: flex
+  align-items: center  // Para centrar el contenido verticalmente
+  justify-content: space-between
+
+  .header-container
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 100%
+
+    .logo
+      display: flex
+      align-items: center  // Centra la imagen verticalmente
+      justify-content: center  // Centra la imagen horizontalmente
+      max-width: 200px  // Limitamos el tamaño máximo del logo
+      max-height: 85px  // Ajustamos el tamaño máximo de la imagen para que no sobrepase el tamaño del contenedor
+      overflow: hidden  // Para asegurarnos de que la imagen no se salga del contenedor
+
+      img
+        width: 100%  // La imagen ocupará todo el espacio disponible en el contenedor
+        height: auto  // Mantendrá las proporciones de la imagen
+        object-fit: contain  // Asegura que la imagen se ajuste dentro del contenedor sin distorsionarse
+
+    .main-nav
+      ul
+        list-style: none
+        display: flex
+        gap: 1.5rem
+        margin: 0
+        padding: 0
+
+        li
+          a
+            text-decoration: none
+            color: #4A311D
+            font-weight: 900
+            font-size: 1.2rem
+            padding: 0.5rem 0
+
+            &:hover
+              color: #4A311D
+              border-bottom: 2px solid #4A311D
+
+section
+  flex: 1  // Esto hace que la sección ocupe el espacio disponible
+  display: flex
+  align-items: center  // Centra el formulario verticalmente
+  flex-direction: column
+  background-color: #FCF5E5
+
+
+
+form
+  background-color: white
+  padding: 2em
+  border-radius: 12px
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1)
+  width: 100%
+  max-width: 400px  // Máximo tamaño para el formulario
+  display: flex
+  flex-direction: column
+  gap: 1.2rem
+
+  h1
+    text-align: center
+    font-size: 25px
+    font-weight: 900
+    color: #4A311D
+    margin: 0
+
+  .flashes
+  list-style: none
+  margin: 1rem 0
+  padding: 1rem
+  border-radius: 5px
+  font-family: Arial, sans-serif
+  transition: opacity 0.5s ease
+
+  .flashes li
+    margin-bottom: 0.5rem
+    opacity: 1
+    transition: opacity 0.5s ease
+
+    .success
+      background-color: #d4edda
+      color: #155724
+      border: 1px solid #c3e6cb
+
+    .error
+      background-color: #f8d7da
+      color: #721c24
+      border: 1px solid #f5c6cb
+
+    .info
+      background-color: #cce5ff
+      color: #004085
+      border: 1px solid #b8daff
+
+    .warning
+      background-color: #fff3cd
+      color: #856404
+      border: 1px solid #ffeeba
+
+    /* Opcional: Agregar animación para desaparecer */
+    .flashes li.fade-out
+      opacity: 0
+      display: none
+
+  div
+    display: flex
+    flex-direction: column
+
+  label
+    margin-bottom: 0.5rem
+    font-weight: 500
+    color: #444
+
+  input
+    padding: 0.6rem 0.8rem
+    border: 1px solid #ccc
+    border-radius: 8px
+    font-size: 1rem
+    transition: border-color 0.2s
+
+    &:focus
+      border-color: #4A311D
+      outline: none
+
+  input[type="submit"]
+    background-color: #4A311D
+    color: white
+    font-weight: bold
+    border: none
+    cursor: pointer
+    padding: 0.7rem
+    border-radius: 8px
+    transition: background-color 0.3s
+
+    &:hover
+      background-color: #6A452A  
+
+footer
+  background-color: #4A311D
+  padding: 1rem 2rem
+  text-align: center
+  font-size: 1rem
+  color: #FCF5E5

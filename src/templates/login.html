@@ -1,0 +1,42 @@
+{% extends './base.html' %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='sass/login.css') }}">
+{% endblock %}
+
+{% block body %}
+<section>
+
+
+    <form action="/login" method="POST">
+        <h1>Iniciar sesión</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+            <li class="{{ message.category }}"></li>>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        <div>
+            {{ form.email.label }}
+            {{ form.email(placeholder='Escriba su correo electrónico') }}
+        </div>
+        
+        <div>
+            {{ form.password.label }}
+            {{ form.password(placeholder='Escriba su contraseña') }}
+        </div>
+        
+        <div>
+            {{form.submit}}
+        </div>
+    </form>
+    
+</section>
+
+{% endblock %}

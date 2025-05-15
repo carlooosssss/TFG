@@ -1,0 +1,113 @@
+{% extends './base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='sass/inicio.css') }}">
+{% endblock %}
+
+{% block body %}
+<section>
+    <div class="banner">
+        <img src="static/images/bannerprincipal.png" alt="Banner" />
+        <div class="texto-banner">
+            <p>Dales <span>una</span> <br> segunda <br> <span>oportunidad</span>, <br> te darán su amor <br> para siempre.</p>
+        </div>
+    </div>
+    <div class="seccion1">
+        <h1>Conoce a Nuestros Amigos Peludos</h1>
+        <p>Estos son solo algunos de los animales que están buscando un hogar lleno de amor. Haz clic para ver más detalles sobre cada uno.</p>
+        <div class="scrollAnimales">
+            <div class="animal">
+                <img src="static/images/minianubis.jpg" alt="Animal 1" />
+                <h2>Nombre del Animal 1</h2>
+                
+            </div>
+            <div class="animal">  
+                <img src="static/images/perrito2.jpg" alt="Animal 2" />
+                <h2>Nombre del Animal 2</h2>
+            </div>
+            <div class="animal">
+                <img src="static/images/pastoralema.jpeg" alt="Animal 3" />
+                <h2>Nombre del Animal 1</h2>
+            </div>
+            <div class="animal">
+                <img src="static/images/perrito4.jpg" alt="Animal 4" />
+                <h2>Nombre del Animal 2</h2>
+            </div>
+            <div class="animal">
+                <img src="static/images/perrito3.avif" alt="Animal 5" />
+                <h2>Nombre del Animal 3</h2>
+            </div>
+            <div class="animal">
+                <img src="static/images/pastoralema.jpeg" alt="Animal 3" />
+                <h2>Nombre del Animal 1</h2>
+            </div>
+            <div class="animal">
+                <img src="static/images/perrito4.jpg" alt="Animal 4" />
+                <h2>Nombre del Animal 2</h2>
+            </div>
+            <div class="animal">
+                <img src="static/images/perrito3.avif" alt="Animal 5" />
+                <h2>Nombre del Animal 3</h2>
+            </div>
+        </div>
+        <button class="vermas">Ver animales disponibles</button>
+    </div>
+    <div class="seccion2">
+        <h1>¿Cómo Adoptar?</h1>
+        <p>Adoptar es fácil y rápido. Aquí te explicamos los pasos para llevar a tu nuevo amigo a casa.</p>
+        <ol class="pasos">
+            <li>Explora nuestros animales disponibles.</li>
+            <li>Contacta con nosotros para si necesitas información.</li>
+            <li>Completa el proceso de adopción y da un hogar a tu nueva mascota.</li>
+        </ol>
+        <h1>Únete a la causa</h1>
+        <p>Tu ayuda puede cambiar vidas. Haz una donación, sé voluntario o  comparte nuestra misión.</p>
+        <div class="botones">
+            <a href="/donaciones"><button>Donar ahora o participar como voluntario</button></a>
+        </div>
+    </div>
+    <div class="seccion3">
+            <h1>¿Quienes somos y a que nos dedicamos?</h1>
+            <p>
+                En TuNuevaMascota, estamos convencidos de que cada animal, sin importar su pasado, merece una segunda oportunidad para vivir feliz y con dignidad. Nuestra labor nace del amor y compromiso hacia perros y gatos que han sido abandonados, maltratados o que simplemente necesitan un hogar. No somos solo una organización sin ánimo de lucro, somos una familia que trabaja día a día para rescatar a estos seres que han sufrido injusticias.
+
+                Cada animal que llega a nuestras manos es recibido con atención personalizada: lo trasladamos a un entorno seguro y lleno de cariño, donde recibe atención veterinaria profesional, alimentación adecuada y cuidados especiales para su bienestar físico y emocional. Pero, sobre todo, le damos amor incondicional, porque creemos que ese es el primer paso para que puedan sanar y recuperar la confianza.
+                
+                Nuestro objetivo final es encontrar hogares responsables y amorosos donde puedan integrarse como miembros queridos de una familia, porque sabemos que el amor y la compañía que brindan los animales no tiene precio. En TuNuevaMascota, no solo damos refugio, sino también esperanza y un futuro mejor.
+            </p>
+            <div class="imagenes">
+                <img src="static/images/imagenbonita.jpg" />
+                <img src="static/images/imagenperroamable.jpeg" class="centro" />
+                <img src="static/images/imagenperromjer.jpg"/>
+            </div>              
+            <p>
+                Desde 2005, hemos ayudado a cientos de animales a encontrar hogares amorosos. Nuestro equipo está formado por voluntarios    comprometidos que trabajan cada día para ofrecerles una vida digna, atención veterinaria y, sobre todo, cariño.Nos financiamos gracias a donaciones, eventos solidarios y el apoyo de personas como tú, que creen en la importancia de adoptar en lugar de comprar.
+                En TuNuevaMascota creemos firmemente que adoptar es mejor que comprar. Al adoptar, le das una segunda oportunidad a un animal que realmente lo necesita, ofreciéndole un hogar lleno de cariño.
+                Cada mascota adoptada es una vida salvada, y con tu gesto ayudas a reducir el abandono y a frenar la cría irresponsable. Comprar muchas veces alimenta prácticas donde el bienestar del animal no es prioridad.
+                Adoptar no solo cambia la vida del animal… también transforma la tuya.
+            </p>
+    </div>
+    <div class="seccion4">
+        <div class="maps">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.086269169964!2d-122.41941518468192!3d37.77492927975974!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c12c33c0f%3A0xb5e7b9c8a5c0e7f!2sSan%20Francisco!5e0!3m2!1ses!2sus!4v1616161616161!5m2!1ses!2sus"
+            width="100%"
+            height="300"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+        <div class="p">
+          <p>
+            Nos encontramos en [Ciudad], donde trabajamos cada día con dedicación y cariño para darles una nueva oportunidad a los animales que han sido abandonados o maltratados. Nuestro objetivo es ofrecerles no solo un refugio temporal, sino un camino hacia una vida digna, llena de amor y cuidado.
+            Con tu apoyo, podemos seguir rescatando, sanando y buscando hogares responsables para ellos. Cada ayuda cuenta, cada vida importa.
+          </p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

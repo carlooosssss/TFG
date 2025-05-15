@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>{% block title %}
+
+        {% endblock %}</title>
+    {% block customCSS %}
+    {% endblock %}
+</head>
+
+<body>
+    {% block header %}
+    {% if current_user.is_authenticated %}
+    <!-- header sin login y register -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="{{ url_for('inicio') }}"><img src="{{ url_for('static', filename='images/logoTFG.png') }}" alt="Logo"></a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{{ url_for('adoptar') }}">Adoptar</a></li>
+                    <li><a href="{{ url_for('donaciones') }}">Donaciones</a></li>
+                    <li><a href="{{ url_for('perfil') }}">Perfil</a></li>
+                    <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
+                    <li><a href="{{ url_for('logout') }}">Cerrar sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    
+    {% else %}
+    <!-- header con login y register -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="{{ url_for('inicio') }}"><img src="{{ url_for('static', filename='images/logoTFG.png') }}" alt="Logo"></a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{{ url_for('adoptar') }}">Adoptar</a></li>
+                    <li><a href="{{ url_for('donaciones') }}">Donaciones</a></li>
+                    <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
+                    <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                    <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+
+    {% endif %}
+    {% endblock %}
+
+    {% block body %}
+
+    {% endblock %}
+    
+    {% block footer %}
+    <!-- footer para todos igual -->
+    <footer>
+        <p>&copy; 2025 Mi Sitio Web. Todos los derechos reservados.</p>
+    </footer>
+    {% endblock %}
+</body>
+
+</html>

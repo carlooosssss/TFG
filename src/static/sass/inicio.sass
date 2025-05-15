@@ -1,0 +1,321 @@
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+    font-family: 'Instrument Sans', sans-serif
+
+header
+    background-color: #FCF5E5
+    padding: 1rem 2rem
+    height: 10vh
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+    .header-container
+        display: flex
+        justify-content: space-between
+        align-items: center
+        width: 100%
+        height: 100%
+
+        .logo
+            display: flex
+            align-items: center
+            justify-content: center
+            max-width: 130px
+            max-height: 80px
+            overflow: hidden
+            margin-top: 10px
+
+            img
+                width: 100%
+                height: auto
+                object-fit: contain
+
+        .main-nav
+            ul
+                list-style: none
+                display: flex
+                gap: 1.5rem
+                margin: 0
+                padding: 0
+
+                li
+                    a
+                        text-decoration: none
+                        color: #4A311D
+                        font-weight: 900
+                        font-size: 1.2rem
+
+                        &:hover
+                            color: #4A311D
+                            border-bottom: 2px solid #4A311D
+
+section
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+
+    .banner
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        position: relative
+        height: 90vh
+        overflow: hidden
+
+        img
+            width: 100%
+            height: 100%
+            object-fit: cover
+
+        .texto-banner
+            position: absolute
+            top: 20%
+            left: 5%
+            color: white
+            max-width: 40%
+
+            h2
+                font-size: 2.5rem
+                margin-bottom: 0.5rem
+
+            p
+                font-size: 60px
+                font-weight: 900
+                color: #4A311D
+
+                span
+                    font-size: 60px
+                    font-weight: 900
+                    color: #FCF5E5
+
+    .seccion1
+        padding-top: 4rem
+        width: 100%
+        padding-inline: 0
+        gap: 2rem
+        height: 100vh
+        display: flex
+        flex-direction: column
+        align-items: center
+        text-align: center
+
+        h1
+            font-size: 2.5rem
+            margin-bottom: 1rem
+            color: #4A311D
+
+        p
+            font-size: 1.2rem
+            margin-bottom: 2rem
+            color: #6B5E45
+
+        .scrollAnimales
+            display: flex
+            width: 100%
+            flex-wrap: nowrap
+            gap: 2rem
+            overflow-x: auto
+            padding-bottom: 2rem
+            padding-inline: 0
+            scrollbar-width: thin
+            scrollbar-color: #4A311D transparent
+            box-sizing: border-box
+
+            &::-webkit-scrollbar
+                height: 8px
+
+            &::-webkit-scrollbar-thumb
+                background-color: #4A311D
+                border-radius: 4px
+
+            .animal:first-child
+                margin-left: 2rem
+
+            .animal:last-child
+                margin-right: 2rem
+
+        .animal
+            flex: 0 0 auto
+            will-change: transform
+            width: 240px
+            background-color: #FCF5E5
+            border-radius: 8px
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1)
+            padding: 1rem
+            text-align: center
+            cursor: pointer
+            transition: transform 0.3s ease
+            backface-visibility: hidden
+            transform-style: preserve-3d
+
+            &:hover
+                transform: scale(1.05)
+                filter: none
+
+            img
+                width: 100%
+                height: 180px
+                object-fit: cover
+                border-radius: 6px
+                margin-bottom: 0.75rem
+
+            h2
+                font-size: 1.2rem
+                color: #4A311D
+
+        .vermas
+            margin-top: 2rem
+            display: flex
+            justify-content: center
+            align-items: center
+            width: 20%
+            background-color: #4A311D
+            color: #FCF5E5
+            border: none
+            padding: 0.75rem 1.5rem
+            font-size: 1rem
+            font-weight: 700
+            border-radius: 6px
+            cursor: pointer
+            transition: background-color 0.3s ease
+
+            &:hover
+                background-color: #6B5E45
+
+    .seccion2
+        padding: 2rem
+        width: 100%
+        color: #4A311D
+
+        h1
+            font-size: 2rem
+            margin-bottom: 0.5rem
+
+        h1:first-of-type
+            text-align: left
+
+        h1:nth-of-type(2)
+            text-align: right
+            margin-top: 3rem
+
+        p
+            font-size: 1.2rem
+            margin-bottom: 1.5rem
+            color: #6B5E45
+
+        .pasos
+            list-style-type: inside  
+            padding-left: 1.5rem
+            margin-bottom: 2rem
+            text-align: left
+
+            li
+                padding-left: 0         // asegurarse que no haya padding que esconda números
+                margin-left: 0          // idem para margin
+                margin-bottom: 0.75rem
+                font-size: 1.1rem
+
+        .botones
+            display: flex
+            justify-content: center
+            gap: 1.5rem
+
+            button
+                background-color: #4A311D
+                color: #FCF5E5
+                border: none
+                padding: 0.75rem 1.5rem
+                font-size: 1rem
+                font-weight: 700
+                border-radius: 6px
+                cursor: pointer
+                transition: background-color 0.3s ease
+
+                &:hover
+                    background-color: #6B5E45   
+    .seccion3
+        width: 100%
+        min-height: 100vh
+        padding: 2rem
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-direction: column
+
+        h1
+            width: 100%  
+            font-size: 2.5rem
+            padding-bottom: 1.5rem
+            color: #4A311D
+            text-align: left
+
+        p
+            font-size: 1.1rem
+            line-height: 2.5
+            color: #4A311D
+            text-align: justify
+
+        .imagenes
+            display: flex
+            justify-content: center
+            align-items: center
+            gap: 1rem
+            margin: 2rem auto
+            position: relative
+            width: max-content
+
+            img
+                width: 300px       // subido de 180px a 300px
+                border-radius: 12px
+                box-shadow: 0 4px 8px rgba(0,0,0,0.15)
+                position: relative
+                z-index: 1
+                opacity: 0.8
+
+            .centro
+                width: 400px       // subido de 240px a 400px
+                z-index: 10
+                opacity: 1
+                box-shadow: 0 8px 20px rgba(0,0,0,0.3)
+                margin: 0 -30px    // margen negativo aumentado para que se encime bien
+
+    .seccion4
+        display: flex
+        justify-content: space-between
+        align-items: center
+        width: 100%
+        gap: 2rem
+        padding: 2rem
+
+        .maps
+            flex: 1
+            min-width: 300px
+            height: 300px
+
+            iframe
+                border-radius: 12px
+                width: 100%
+                height: 100%
+                border: none
+
+        .p
+            flex: 1
+            display: flex
+            align-items: center
+
+            p
+                font-size: 1.1rem
+                line-height: 5
+                color: #4A311D
+footer
+    background-color: #4A311D
+    padding: 1rem 2rem
+    text-align: center
+    font-size: 1rem
+    color: #FCF5E5
