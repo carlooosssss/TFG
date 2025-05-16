@@ -3,9 +3,35 @@
 {% block title %}Adoptar{% endblock %}
 
 {% block customCSS %}
-<link rel="stylesheet" href="{{ url_for('static', filename='sass/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='sass/adoptar.css') }}">
 {% endblock %}
 
 {% block body %}
-    <h1>Adoptar</h1>
+<section>
+    <div class="banner">
+        <img src="static/images/banneradopcion.jpg" alt="Banner" />
+        <div class="texto-banner">
+            <p>Encuentra a tu nuevo mejor amigo</p>
+        </div>
+    </div>
+    <main class="adoptar">
+        <div class="container">
+            <h1>Adopta a un amigo</h1>
+            <p>En nuestra organización, creemos que cada animal merece un hogar amoroso. Aquí puedes encontrar a tu nuevo compañero peludo.</p>
+            <div class="animales">
+                {% for animal in animales %}
+                <div class="animal">
+                    <img src="{{ url_for('static', filename='images/' + animal.imagen) }}" alt="{{ animal.nombre }}">
+                    <div class="info-animal">
+                        <h2>{{ animal.nombre }}</h2>
+                        <p>{{ animal.descripcion }}</p>
+                        <a href="{{ url_for('adoptar_detalle', nombre=animal.nombre) }}" class="btn">Más información</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</section>
+
 {% endblock %}

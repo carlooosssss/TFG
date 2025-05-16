@@ -107,9 +107,45 @@ def register():
 def incio():
     return render_template('incio.html')
 
+
 @app.route('/adoptar', methods=['GET'])
 def adoptar():
-    return render_template('adoptar.html')
+    cursor = db.connection.cursor()
+    cursor.execute('SELECT * FROM animales')
+    animales = cursor.fetchall()  # Esto devuelve una lista de tuplas
+
+    # Opcional: convertir a lista de dicts si lo necesitas así en tu plantilla
+    animales_dict = []
+    for row in animales:
+        animales_dict.append({
+            'id': row[0],
+            'nombre': row[1],
+            'descripcion': row[2],
+            'imagen': row[3]
+        })
+    
+    print(animales_dict)
+
+    return render_template('adoptar.html', animales=animales_dict)
+
+@app.route('/adoptar/<string:nombre>', methods=['GET'])
+def adoptar_detalle(nombre):
+    cursor = db.connection.cursor()
+    cursor.execute('SELECT * FROM animales WHERE nombre = %s', (nombre,))
+    animal = cursor.fetchone()
+    if animal is not None:
+        animal = {
+            'id': animal[0],
+            'nombre': animal[1],
+            'descripcion': animal[2],
+            'imagen': animal[3]
+        }
+    else:
+        animal = None
+
+    if animal is None:
+        return "Animal no encontrado", 404
+    return render_template('adoptar_detalle.html', animal=animal)
 
 @app.route('/donaciones', methods=['GET'])
 def donaciones():
