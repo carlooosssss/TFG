@@ -3,9 +3,124 @@
 {% block title %}Donaciones{% endblock %}
 
 {% block customCSS %}
-<link rel="stylesheet" href="{{ url_for('static', filename='sass/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='sass/donaciones.css') }}">
 {% endblock %}
 
 {% block body %}
-    <h1>Donaciones</h1>
+<section>
+    <div class="banner">
+        <img src="static/images/donaciones.png" alt="Banner Donaciones" />
+        <div class="texto-banner">
+            <p>Ellos no <br> pueden <br> pedir <span>ayuda</span>, <br> pero tú sí <br> puedes <br> ofrecérsela.</p>
+        </div>
+    </div>
+
+    <div class="seccion1">
+        <div class="texto-destacado">
+            <h2>Una pequeña acción puede tener un gran impacto.</h2>
+            <p>Dona y sé parte del cambio que necesitan nuestros peludos</p>
+        </div>
+        <p class="descripcion">
+En nuestra protectora, cada gesto cuenta. Además de las donaciones económicas, también puedes colaborar donando comida, mantas, juguetes, medicamentos, o incluso tu tiempo como voluntario. Todo suma para mejorar la vida de nuestros animales.
+
+Muchas veces, lo que para nosotros es algo pequeño, para ellos lo es todo. Desde una simple caricia hasta una tarde de paseo, cada acción tiene un valor incalculable. Si no puedes ayudar económicamente, compartir nuestra labor o difundir nuestros casos también es una forma poderosa de apoyar.
+
+Nuestro objetivo es ofrecerles una segunda oportunidad, un hogar lleno de amor y seguridad. Gracias a personas como tú, cada día estamos más cerca de lograrlo. ¡Únete al cambio y forma parte de esta familia que no deja a nadie atrás!        </p>
+        <p class="telefono">Teléfono de contacto: <a>+34 625881594</a></p>
+    </div>
+
+    <form method="POST" action="{{ url_for('donaciones') }}">
+        <h2>Se parte del cambio</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="custom-alert {{ category }}">
+            {{ message }}
+            <button type="button" class="close-btn" aria-label="Cerrar">×</button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {{ form.hidden_tag() }}
+        <div class="formulario">
+            <label>{{ form.amount.label }}</label>
+            {{ form.amount(size=20) }}
+        </div>
+
+        <div class="form-group">
+            <p>Elige método de pago:</p>
+            {% for subfield in form.payment_method %}
+                <label>{{ subfield() }} {{ subfield.label.text }}</label><br>
+            {% endfor %}
+        </div>
+
+        <div id="card-fields">
+            <label>{{ form.card_number.label }}</label>
+            {{ form.card_number(size=20) }}
+            <label>{{ form.card_expiry.label }}</label>
+            {{ form.card_expiry(size=5) }}
+        </div>
+
+        <div id="paypal-fields">
+            <label>{{ form.paypal_email.label }}</label>
+            {{ form.paypal_email(size=30) }}
+        </div>
+
+        <div id="bank-fields">
+            <label>{{ form.bank_account.label }}</label>
+            {{ form.bank_account(size=20) }}
+        </div>
+
+        <div>
+            {{form.submit}}
+        </div>
+    </form>
+</section>
+
+<script>
+    function updatePaymentFields() {
+        const radios = document.querySelectorAll('input[name="payment_method"]');
+        const cardFields = document.getElementById('card-fields');
+        const paypalFields = document.getElementById('paypal-fields');
+        const bankFields = document.getElementById('bank-fields');
+
+        // Ocultar todos inicialmente
+        cardFields.style.display = 'none';
+        paypalFields.style.display = 'none';
+        bankFields.style.display = 'none';
+
+        // Buscar cuál está seleccionado
+        radios.forEach(radio => {
+            if (radio.checked) {
+                if (radio.value === 'card') {
+                    cardFields.style.display = 'flex';
+                } else if (radio.value === 'paypal') {
+                    paypalFields.style.display = 'flex';
+                } else if (radio.value === 'bank') {
+                    bankFields.style.display = 'flex';
+                }
+            }
+        });
+    }
+
+    // Al cambiar radio, actualizar campos
+    const radios = document.querySelectorAll('input[name="payment_method"]');
+    radios.forEach(radio => {
+        radio.addEventListener('change', updatePaymentFields);
+    });
+
+    // Al hacer clic en el botón de cerrar, ocultar la alerta
+    document.querySelectorAll('.close-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.style.display = 'none';
+            });
+        });
+    
+    // Al cargar la página, actualizar campos según selección previa
+    window.addEventListener('DOMContentLoaded', updatePaymentFields);
+
+</script>
 {% endblock %}
+

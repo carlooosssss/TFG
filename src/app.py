@@ -1,16 +1,28 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import LoginManager, login_user, current_user, logout_user
-from werkzeug.security import generate_password_hash, check_password_hash
-from forms import registerForm, loginForm
+from werkzeug.security import generate_password_hash
+from forms import registerForm, loginForm, DonationForm, ContactForm
 from models.modelUser import ModelUser
-from flask_mysqldb import MySQL
-
 import os
+from extensions import mysql
 from dotenv import load_dotenv
+from flask_mail import Mail, Message
 
 load_dotenv()
 
+
 app = Flask(__name__)
+
+# Configuración de Flask-Mail usando variables de entorno
+app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
+app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))
+app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS') == 'True'
+app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL') == 'True'
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+
+mail = Mail(app)
+
 
 app.config["MYSQL_USER"] = os.getenv("MYSQL_USER")
 app.config["MYSQL_HOST"] = os.getenv("MYSQL_HOST")
@@ -18,12 +30,19 @@ app.config["MYSQL_PASSWORD"] = os.getenv("MYSQL_PASSWORD")
 app.config["MYSQL_DB"] = os.getenv("MYSQL_DB")
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
-db = MySQL(app)
+mysql.init_app(app)
+
+from perfil import perfil_bp
+app.register_blueprint(perfil_bp)
+
+from admin import admin_bp
+app.register_blueprint(admin_bp)
+
 login_manager = LoginManager(app)
 
 @login_manager.user_loader
 def get_by_id(id):
-    return ModelUser.get_by_id(db, id)
+    return ModelUser.get_by_id(mysql, id)
 
 @app.route('/', methods=['GET'])
 def inicio():
@@ -38,7 +57,7 @@ def login():
         password = request.form.get('password')
         email = request.form.get('email')
     
-        logged_user = ModelUser.login(db,email, password)
+        logged_user = ModelUser.login(mysql,email, password)
 
         if logged_user:
             if logged_user.password:
@@ -74,20 +93,19 @@ def register():
         hashed_password = generate_password_hash(password)
 
         try:
-            cur = db.connection.cursor()
+            cur = mysql.connection.cursor()
 
             sql = "INSERT INTO usuarios (nombre, contraseña, telefono, email) VALUES (%s, %s, %s, %s)"
 
             cur.execute(sql, (nombre, hashed_password, telefono, email))
 
-            db.connection.commit()
+            mysql.connection.commit()
 
         except Exception as e:
             flash("Error al registrar el usuario. Verifica que el correo no esté en uso.", "error")
             return redirect(url_for('register'))
 
-        # Obtener el usuario recién creado
-        user = ModelUser.get_by_email(db, email) 
+        user = ModelUser.get_by_email(mysql, email) 
         print(user)
         if user:
             login_user(user) 
@@ -110,11 +128,10 @@ def incio():
 
 @app.route('/adoptar', methods=['GET'])
 def adoptar():
-    cursor = db.connection.cursor()
+    cursor = mysql.connection.cursor()
     cursor.execute('SELECT * FROM animales')
-    animales = cursor.fetchall()  # Esto devuelve una lista de tuplas
+    animales = cursor.fetchall()  
 
-    # Opcional: convertir a lista de dicts si lo necesitas así en tu plantilla
     animales_dict = []
     for row in animales:
         animales_dict.append({
@@ -130,7 +147,7 @@ def adoptar():
 
 @app.route('/adoptar/<string:nombre>', methods=['GET'])
 def adoptar_detalle(nombre):
-    cursor = db.connection.cursor()
+    cursor = mysql.connection.cursor()
     cursor.execute('SELECT * FROM animales WHERE nombre = %s', (nombre,))
     animal = cursor.fetchone()
     if animal is not None:
@@ -147,20 +164,57 @@ def adoptar_detalle(nombre):
         return "Animal no encontrado", 404
     return render_template('adoptar_detalle.html', animal=animal)
 
-@app.route('/donaciones', methods=['GET'])
+@app.route('/donaciones', methods=['GET', 'POST'])
 def donaciones():
-    return render_template('donaciones.html')
+    form = DonationForm()
 
-@app.route('/contacto', methods=['GET'])
+    if form.validate_on_submit():
+        payment_method = form.payment_method.data
+
+        if payment_method == 'card':
+            if not form.card_number.data or not form.card_expiry.data:
+                flash("Por favor, completa los datos de la tarjeta", "danger")
+                return redirect(url_for('donaciones'))
+
+
+        elif payment_method == 'paypal':
+            if not form.paypal_email.data:
+                flash("Introduce un correo electrónico de PayPal", "danger")
+                return redirect(url_for('donaciones'))
+
+
+        elif payment_method == 'bank':
+            if not form.bank_account.data:
+                flash("Introduce un número de cuenta bancaria", "danger")
+                return redirect(url_for('donaciones'))
+
+        flash("¡Gracias por tu donación!", "success")
+        return redirect(url_for('donaciones'))
+    
+    return render_template('donaciones.html', form=form)
+    
+@app.route('/contacto', methods=['GET', 'POST'])
 def contacto():
-    return render_template('contacto.html')
+    form = ContactForm()
 
-@app.route('/perfil', methods=['GET'])
-def perfil():
-    if current_user.is_authenticated:
-        return render_template('perfil.html', user=current_user)
-    else:
-        return redirect(url_for('login'))
+    if form.validate_on_submit():
+        msg = Message(
+            subject=form.subject.data,
+            sender=form.email.data,
+            recipients=['carlosrs2210.crs@gmail.com'],
+            body=f"De: {form.name.data} <{form.email.data}>\n\n{form.message.data}"
+        )
+
+        try:
+            mail.send(msg)
+            flash("¡Tu mensaje ha sido enviado con éxito!", "success")
+        except Exception as e:
+            flash("Error al enviar el mensaje. Inténtalo más tarde.", "danger")
+            print(e)
+
+        return redirect(url_for('contacto'))
+
+    return render_template('contacto.html', form=form)
 
 @app.route('/logout', methods=['GET'])
 def logout():

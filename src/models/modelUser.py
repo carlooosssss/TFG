@@ -64,3 +64,17 @@ class ModelUser():
         
         except Exception as e:
             raise Exception(e)
+    
+    @classmethod
+    def update_user_data(cls, db, id, nombre, email, telefono, password=None):
+        try:
+            cursor = db.connection.cursor()
+            if password:
+                sql = 'UPDATE usuarios SET nombre=%s, email=%s, telefono=%s, contraseña=%s WHERE id=%s'
+                cursor.execute(sql, (nombre, email, telefono, password, id))
+            else:
+                sql = 'UPDATE usuarios SET nombre=%s, email=%s, telefono=%s WHERE id=%s'
+                cursor.execute(sql, (nombre, email, telefono, id))
+            db.connection.commit()
+        except Exception as e:
+            raise Exception(e)

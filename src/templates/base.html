@@ -15,7 +15,6 @@
 <body>
     {% block header %}
     {% if current_user.is_authenticated %}
-    <!-- header sin login y register -->
     <header>
         <div class="header-container">
             <div class="logo">
@@ -25,7 +24,7 @@
                 <ul>
                     <li><a href="{{ url_for('adoptar') }}">Adoptar</a></li>
                     <li><a href="{{ url_for('donaciones') }}">Donaciones</a></li>
-                    <li><a href="{{ url_for('perfil') }}">Perfil</a></li>
+                    <li><a href="{{ url_for('perfil.perfil') }}">Perfil</a></li>
                     <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
                     <li><a href="{{ url_for('logout') }}">Cerrar sesión</a></li>
                 </ul>
@@ -35,7 +34,6 @@
     
     
     {% else %}
-    <!-- header con login y register -->
     <header>
         <div class="header-container">
             <div class="logo">
@@ -58,15 +56,14 @@
     {% endblock %}
 
     {% block body %}
+        
 
     {% endblock %}
     
-    {% block footer %}
-    <!-- footer para todos igual -->
+
     <footer>
         <p>&copy; 2025 Mi Sitio Web. Todos los derechos reservados.</p>
     </footer>
-    {% endblock %}
 </body>
 
 </html>

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Agregar Animal{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='sass/form_animal.css') }}">
+{% endblock %}
+
+{% block body %}
+<section>
+    <div class="contenedor">
+        <h1>Agregar Animal</h1>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <div>
+                {{ form.nombre.label(class="form-label") }}
+                {{ form.nombre(class="form-control") }}
+            </div>
+
+            <div>
+                {{ form.descripcion.label(class="form-label") }}
+                {{ form.descripcion(class="form-control") }}
+            </div>
+
+            <div>
+                {{ form.imagen.label(class="form-label") }}
+                {{ form.imagen(class="form-control") }}
+            </div>
+
+            <div class="botones">
+                {{ form.submit(class="btn btn-success") }}
+                <a href="{{ url_for('admin.listar_animales') }}" class="btn btn-secondary">Cancelar</a>
+            </div>
+            
+        </form>
+    </div>
+</section>
+{% endblock %}

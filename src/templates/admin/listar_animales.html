@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Administrar Animales{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='sass/listar_animales.css') }}">
+{% endblock %}
+
+{% block body %}
+<section>
+    <div class="container mt-5">
+        <h1 class="mb-4">Gestión de Animales</h1>
+        <a href="{{ url_for('admin.agregar_animal') }}" class="btn btn-success mb-4">Agregar nuevo animal</a>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <table class="table table-striped table-bordered align-middle text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Imagen</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for animal in animales %}
+                <tr>
+                    <td>{{ animal[0] }}</td>
+                    <td>{{ animal[1] }}</td>
+                    <td>{{ animal[2] }}</td>
+                    <td>
+                        <img src="{{ animal[3] }}" alt="Imagen" width="100" height="100" style="object-fit: cover;">
+                    </td>
+                    <td>
+                        <a href="{{ url_for('admin.editar_animal', id=animal[0]) }}" class="btn btn-warning btn-sm mb-1">Editar</a>
+                        <form action="{{ url_for('admin.eliminar_animal', id=animal[0]) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este animal?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% endblock %}

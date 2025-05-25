@@ -3,9 +3,50 @@
 {% block title %}Perfil{% endblock %}
 
 {% block customCSS %}
-<link rel="stylesheet" href="{{ url_for('static', filename='sass/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='sass/perfil.css') }}">
 {% endblock %}
 
 {% block body %}
-    <h1>Perfil</h1>
+<section>
+
+  <form method="POST" class="perfil-form">
+      {{ form.hidden_tag() }}
+      
+      <h1>Perfil</h1>
+
+      <div>
+        <label for="nombre">{{ form.nombre.label }}</label>
+      {{ form.nombre }}
+      </div>
+      
+      <div>
+        <label for="correo">{{ form.correo.label }}</label>
+      {{ form.correo }}
+      </div>
+      
+      <div>
+        <label for="telefono">{{ form.telefono.label }}</label>
+        {{ form.telefono }}
+      </div>
+      
+      <div>
+        <label for="password">{{ form.password.label }}</label>
+        {{ form.password }}
+      </div>
+
+      {{ form.submit }}
+  </form>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul class="custom-alert">
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+</section>
+
+
 {% endblock %}

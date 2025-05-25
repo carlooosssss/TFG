@@ -3,9 +3,61 @@
 {% block title %}Contacto{% endblock %}
 
 {% block customCSS %}
-<link rel="stylesheet" href="{{ url_for('static', filename='sass/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='sass/contacto.css') }}">
 {% endblock %}
 
 {% block body %}
-    <h1>Contacto</h1>
+<section>
+    <form method="POST" action="{{ url_for('contacto') }}">
+        <h2>Contacto</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="custom-alert {{ category }}">
+                {{ message }}
+                <button type="button" class="close-btn" aria-label="Cerrar">×</button>
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {{ form.hidden_tag() }}
+
+        <div>
+            <label>{{ form.name.label }}</label>
+            {{ form.name() }}
+        </div>
+
+        <div>
+            <label>{{ form.email.label }}</label>
+            {{ form.email() }}
+        </div>
+
+        <div>
+            <label>{{ form.subject.label }}</label>
+            {{ form.subject() }}
+        </div>
+
+        <div>
+            <label>{{ form.message.label }}</label>
+            {{ form.message(rows=5) }}
+        </div>
+
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+</section>
+
+<script>
+    // Cerrar alertas flash
+    window.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.close-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.style.display = 'none';
+            });
+        });
+    });
+</script>
 {% endblock %}
