@@ -15,8 +15,7 @@ dist/
 build/
 out/
 
-# SASS/SCSS compilado (si solo subes el SASS original)
-*.css
+# Subir el sass y el css
 *.css.map
 
 # Archivos temporales de editores
