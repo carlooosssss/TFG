@@ -10,7 +10,7 @@ admin_bp = Blueprint('admin', __name__)
 @admin_bp.route('/animales')
 @login_required
 def listar_animales():
-    if not (current_user.email == 'admin@admin.admin'):
+    if not (current_user.email == 'admin@admin.com'):
             flash('Acceso restringido solo para el administrador.', 'danger')
             return redirect(url_for('inicio')) 
     
@@ -23,7 +23,7 @@ def listar_animales():
 @admin_bp.route('/animales/agregar', methods=['GET', 'POST'])
 @login_required
 def agregar_animal():
-    if not (current_user.email == 'admin@admin.admin'):
+    if not (current_user.email == 'admin@admin.com'):
             flash('Acceso restringido solo para el administrador.', 'danger')
             return redirect(url_for('inicio')) 
     form = AnimalForm()
@@ -40,7 +40,7 @@ def agregar_animal():
 @admin_bp.route('/animales/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editar_animal(id):
-    if not (current_user.email == 'admin@admin.admin'):
+    if not (current_user.email == 'admin@admin.com'):
             flash('Acceso restringido solo para el administrador.', 'danger')
             return redirect(url_for('inicio')) 
     cur = mysql.connection.cursor()
@@ -71,7 +71,7 @@ def editar_animal(id):
 @admin_bp.route('/animales/eliminar/<int:id>', methods=['POST'])
 @login_required
 def eliminar_animal(id):
-    if not (current_user.email == 'admin@admin.admin'):
+    if not (current_user.email == 'admin@admin.com'):
             flash('Acceso restringido solo para el administrador.', 'danger')
             return redirect(url_for('inicio')) 
 

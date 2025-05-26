@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 from flask_login import LoginManager, login_user, current_user, logout_user
 from werkzeug.security import generate_password_hash
 from forms import registerForm, loginForm, DonationForm, ContactForm
@@ -39,6 +39,10 @@ from admin import admin_bp
 app.register_blueprint(admin_bp)
 
 login_manager = LoginManager(app)
+
+@app.route('/static/<path:filename>')
+def static_files(filename):
+    return send_from_directory('static', filename)
 
 @login_manager.user_loader
 def get_by_id(id):
