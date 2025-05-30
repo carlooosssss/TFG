@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Cambiar contraseña
+{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='sass/reset_request.css') }}">
+{% endblock %}
+
+{% block body %}
+<section>
+    <form method="POST">
+        <h2>Nueva contraseña</h2>
+        <input type="password" name="password" placeholder="Nueva contraseña" required>
+        <button type="submit">Actualizar</button>
+    </form>
+</section>
+{% endblock %}

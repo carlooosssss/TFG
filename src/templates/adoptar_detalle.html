@@ -11,12 +11,15 @@
 {% block body %}
 <section class="detalle-animal">
     <div class="detalle-imagen">
-      <img src="{{ url_for('static', filename='images/' + animal.imagen) }}" alt="Imagen de {{ animal.nombre }}">
+      <img src="{{ animal.imagen }}" alt="Imagen de {{ animal.nombre }}">
     </div>
     <div class="detalle-info">
       <h1 class="detalle-nombre">{{ animal.nombre }}</h1>
       <p class="detalle-descripcion">{{ animal.descripcion }}</p>
-      <a href="{{ url_for('adoptar') }}" class="btn-volver">← Volver a la adopción</a>
+      <div class="botones">
+        <a href="{{ url_for('adoptar') }}" class="btn-volver"> Volver a la adopción</a>
+        <a href="{{ url_for('solicitar_adopcion', animal_nombre=animal.nombre) }}" class="btn-adoptar">Solicitar adopcion</a>
+      </div>
     </div>
   </section>
   

@@ -18,41 +18,14 @@
         <h1>Conoce a Nuestros Amigos Peludos</h1>
         <p>Estos son solo algunos de los animales que están buscando un hogar lleno de amor. Haz clic para ver más detalles sobre cada uno.</p>
         <div class="scrollAnimales">
-            <div class="animal">
-                <img src="static/images/minianubis.jpg" alt="Animal 1" />
-                <h2>Nombre del Animal 1</h2>
-                
+            {% for animal in animales %}
+            <div class="animal" onclick="location.href='/adoptar/{{ animal.nombre }}'">
+                <img src="{{ animal.imagen }}" alt="{{ animal.nombre }}" />
+                <h2>{{ animal.nombre }}</h2>
             </div>
-            <div class="animal">  
-                <img src="static/images/perrito2.jpg" alt="Animal 2" />
-                <h2>Nombre del Animal 2</h2>
-            </div>
-            <div class="animal">
-                <img src="static/images/pastoralema.jpeg" alt="Animal 3" />
-                <h2>Nombre del Animal 1</h2>
-            </div>
-            <div class="animal">
-                <img src="static/images/perrito4.jpg" alt="Animal 4" />
-                <h2>Nombre del Animal 2</h2>
-            </div>
-            <div class="animal">
-                <img src="static/images/perrito3.avif" alt="Animal 5" />
-                <h2>Nombre del Animal 3</h2>
-            </div>
-            <div class="animal">
-                <img src="static/images/pastoralema.jpeg" alt="Animal 3" />
-                <h2>Nombre del Animal 1</h2>
-            </div>
-            <div class="animal">
-                <img src="static/images/perrito4.jpg" alt="Animal 4" />
-                <h2>Nombre del Animal 2</h2>
-            </div>
-            <div class="animal">
-                <img src="static/images/perrito3.avif" alt="Animal 5" />
-                <h2>Nombre del Animal 3</h2>
-            </div>
+            {% endfor %}
         </div>
-        <button class="vermas">Ver animales disponibles</button>
+        <button class="vermas"><a href="/adoptar">Ver animales disponibles</a></button>
     </div>
     <div class="seccion2">
         <h1>¿Cómo Adoptar?</h1>
@@ -63,7 +36,13 @@
             <li>Completa el proceso de adopción y da un hogar a tu nueva mascota.</li>
         </ol>
         <h1>Únete a la causa</h1>
-        <p>Tu ayuda puede cambiar vidas. Haz una donación, sé voluntario o  comparte nuestra misión.</p>
+        <p>Tu ayuda puede cambiar vidas. Haz una donación, sé voluntario o  comparte nuestra misión. Miles de animales esperan una segunda oportunidad. Muchos han sido abandonados, otros nacieron sin hogar, pero todos tienen algo en común: el deseo de ser amados.
+
+Adoptar no solo salva vidas, también transforma la tuya. Un animal rescatado no olvida a quien le tendió la mano. Te dan su amor incondicional, su lealtad eterna y una compañía que llena el corazón.
+
+Cada adopción es un acto de amor, una historia de esperanza, y una victoria contra el abandono.
+
+Únete a nuestra causa. Adopta, no compres. Dale a un peludo la oportunidad de tener un hogar... y gana un amigo para toda la vida.</p>
         <div class="botones">
             <a href="/donaciones"><button>Donar ahora o participar como voluntario</button></a>
         </div>

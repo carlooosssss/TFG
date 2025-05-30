@@ -1,67 +1,120 @@
-html, body
-  margin: 0
-  padding: 0
-  height: 100%
-  box-sizing: border-box
-
-body
-  display: flex
-  flex-direction: column
-  color: #2c3e50
-  font-family: 'Instrument Sans', sans-serif
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+    font-family: 'Instrument Sans', sans-serif
 
 header
-  background-color: white
-  padding: 1rem 2rem
-  min-height: 10vh  
-  display: flex
-  align-items: center 
-  justify-content: space-between
-
-  .header-container
+    background-color: white
+    padding: 1rem 2rem
+    height: 10vh
     display: flex
-    justify-content: space-between
     align-items: center
-    width: 100%
+    justify-content: space-between
 
-    .logo
-      display: flex
-      align-items: center  
-      justify-content: center  
-      max-width: 200px 
-      max-height: 85px 
-      overflow: hidden
-
-      img
-        width: 100%  
-        height: auto 
-        object-fit: contain  
-
-    .main-nav
-      ul
-        list-style: none
+    .header-container
         display: flex
-        gap: 1.5rem
-        margin: 0
-        padding: 0
+        position: relative
+        justify-content: space-between
+        align-items: center
+        width: 100%
+        height: 100%
 
-        li
-          a
-            text-decoration: none
+        .logo
+            display: flex
+            align-items: center
+            justify-content: center
+            max-width: 130px
+            max-height: 80px
+            overflow: hidden
+            margin-top: 10px
+
+            img
+                width: 100%
+                height: auto
+                object-fit: contain
+
+        .main-nav
+            ul
+                list-style: none
+                display: flex
+                gap: 1.5rem
+                margin: 0
+                padding: 0
+
+                li
+                    a
+                        text-decoration: none
+                        color: #2c3e50
+                        font-weight: 900
+                        font-size: 1.2rem
+
+                        &:hover
+                            color: #2c3e50
+                            border-bottom: 2px solid #2c3e50
+
+        .hamburger
+            display: none
+            font-size: 2.5rem
+            cursor: pointer
             color: #2c3e50
-            font-weight: 900
-            font-size: 1.2rem
-            padding: 0.5rem 0
+            z-index: 101
+            background: none
+            border: none
+            position: absolute
+            top: 50%
+            right: 2rem
+            transform: translateY(-50%) // <-- Añade esto
 
-            &:hover
-              color: #2c3e50
-              border-bottom: 2px solid #2c3e50
+
+@media (max-width: 768px)
+    .main-nav
+        position: fixed
+        top: 0
+        left: 0
+        width: 100vw
+        height: 100vh
+        background-color: rgba(255, 255, 255, 0.95)
+        text-align: center
+        padding: 4rem 2rem
+        z-index: 100
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-direction: column
+        transform: translateX(100%)
+        transition: transform 0.3s ease-in-out
+        pointer-events: none
+
+        ul
+            padding: 0
+            margin: 0
+            display: flex
+            flex-direction: column
+            justify-content: center
+            align-items: center
+
+            li
+                margin-bottom: 4rem
+
+                a
+                    font-size: clamp(2rem, 5vw, 3rem)
+                    font-weight: 900
+                    color: #2c3e50
+
+    .main-nav.active
+        transform: translateX(0)
+        pointer-events: auto
+
+    .hamburger
+        display: flex !important
 section
     flex: 1
     display: flex
     align-items: center
     flex-direction: column
     background-color: #fff
+    height: 83.9vh
     padding: 2rem 0
 
     .contenedor

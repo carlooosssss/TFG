@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_login import LoginManager, login_user, current_user, logout_user
+from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from werkzeug.security import generate_password_hash
 from forms import registerForm, loginForm, DonationForm, ContactForm
 from models.modelUser import ModelUser
@@ -7,6 +7,10 @@ import os
 from extensions import mysql
 from dotenv import load_dotenv
 from flask_mail import Mail, Message
+from extensions import mail
+from tokens import generate_token, confirm_token
+from datetime import datetime
+
 
 load_dotenv()
 
@@ -20,8 +24,8 @@ app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS') == 'True'
 app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL') == 'True'
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
-
-mail = Mail(app)
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER')
+mail.init_app(app)
 
 
 app.config["MYSQL_USER"] = os.getenv("MYSQL_USER")
@@ -38,6 +42,10 @@ app.register_blueprint(perfil_bp)
 from admin import admin_bp
 app.register_blueprint(admin_bp)
 
+from errors import errors
+app.register_blueprint(errors)
+
+
 login_manager = LoginManager(app)
 
 @login_manager.user_loader
@@ -46,7 +54,21 @@ def get_by_id(id):
 
 @app.route('/', methods=['GET'])
 def inicio():
-    return render_template("inicio.html")
+    cursor = mysql.connection.cursor()
+    cursor.execute('SELECT * FROM animales')
+    animales = cursor.fetchall()  
+
+    animales_dict = []
+    for row in animales:
+        animales_dict.append({
+            'id': row[0],
+            'nombre': row[1],
+            'descripcion': row[2],
+            'imagen': row[3]
+        })
+    
+
+    return render_template("inicio.html", animales=animales_dict)
 
 @app.route('/login', methods=['POST','GET'])
 def login():
@@ -106,7 +128,6 @@ def register():
             return redirect(url_for('register'))
 
         user = ModelUser.get_by_email(mysql, email) 
-        print(user)
         if user:
             login_user(user) 
             flash("Registro exitoso. Bienvenido.", "success")
@@ -119,11 +140,6 @@ def register():
         if current_user.is_authenticated:
             return redirect(url_for('inicio'))
         return render_template('register.html', form=form)
-
-
-@app.route('/incio', methods=['GET'])
-def incio():
-    return render_template('incio.html')
 
 
 @app.route('/adoptar', methods=['GET'])
@@ -141,7 +157,6 @@ def adoptar():
             'imagen': row[3]
         })
     
-    print(animales_dict)
 
     return render_template('adoptar.html', animales=animales_dict)
 
@@ -163,6 +178,33 @@ def adoptar_detalle(nombre):
     if animal is None:
         return "Animal no encontrado", 404
     return render_template('adoptar_detalle.html', animal=animal)
+
+@app.route('/solicitar_adopcion/<animal_nombre>')
+@login_required
+def solicitar_adopcion(animal_nombre):
+    usuario_id = current_user.id
+
+    cur = mysql.connection.cursor()
+    cur.execute("""
+        SELECT * FROM solicitudes 
+        WHERE usuario_id = %s AND nombre_animal = %s
+    """, (usuario_id, animal_nombre))
+    existe = cur.fetchone()
+
+    if existe:
+        flash('Ya has enviado una solicitud para este animal.', 'warning')
+        cur.close()
+        return redirect(url_for('adoptar')) 
+
+    cur.execute("""
+        INSERT INTO solicitudes (usuario_id, nombre_animal, fecha)
+        VALUES (%s, %s, %s)
+    """, (usuario_id, animal_nombre, datetime.now()))
+    mysql.connection.commit()
+    cur.close()
+
+    return render_template('solicitud_enviada.html')
+
 
 @app.route('/donaciones', methods=['GET', 'POST'])
 def donaciones():
@@ -215,6 +257,50 @@ def contacto():
         return redirect(url_for('contacto'))
 
     return render_template('contacto.html', form=form)
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_request():
+    if request.method == 'POST':
+        email = request.form['email']
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT email FROM usuarios WHERE email = %s", (email,))
+        user = cursor.fetchone()
+        cursor.close()
+
+        if user:
+            token = generate_token(email)
+            reset_url = url_for('reset_token', token=token, _external=True)
+            msg = Message('Restablecer contraseña', 
+                sender='carlosrs2210.crs@gmail.com',
+                recipients=[email])
+            msg.body = f'Para restablecer tu contraseña, haz clic en el siguiente enlace:\n{reset_url}\n\nEste enlace expira en 20 minutos.'
+            mail.send(msg)
+
+        flash('Si existe una cuenta con ese correo, se ha enviado un enlace para restablecer la contraseña.', 'info')
+        return redirect(url_for('perfil.perfil'))
+
+    return render_template('reset_request.html')
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    email = confirm_token(token)
+    if not email:
+        flash('El enlace es inválido o ha expirado, intentalo de nuevo.', 'danger')
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        new_password = request.form['password']
+        hashed_password = generate_password_hash(new_password)
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("UPDATE usuarios SET contraseña = %s WHERE email = %s", (hashed_password, email))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash('Tu contraseña ha sido actualizada. Ya puedes iniciar sesión.', 'success')
+        return redirect(url_for('perfil.perfil'))
+
+    return render_template('reset_token.html')
 
 @app.route('/logout', methods=['GET'])
 def logout():

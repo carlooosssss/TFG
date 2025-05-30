@@ -8,46 +8,47 @@
 
 {% block body %}
 <section>
-    <form method="POST" action="{{ url_for('contacto') }}">
-        <h2>Contacto</h2>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <span class="{{ message.category }}">{{ message }}</span>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <main>
+        <div>
+            <img src="https://irp.cdn-website.com/a5930090/dms3rep/multi/giphy+%281%29.gif" alt="gif">
+        </div>
+        <form method="POST" action="{{ url_for('contacto') }}">
+            <h2>Contacto</h2>
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-            <div class="custom-alert {{ category }}">
-                {{ message }}
-                <button type="button" class="close-btn" aria-label="Cerrar">×</button>
+            {{ form.hidden_tag() }}
+
+            <div>
+                <label>{{ form.name.label }}</label>
+                {{ form.name() }}
             </div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
 
-        {{ form.hidden_tag() }}
+            <div>
+                <label>{{ form.email.label }}</label>
+                {{ form.email() }}
+            </div>
 
-        <div>
-            <label>{{ form.name.label }}</label>
-            {{ form.name() }}
-        </div>
+            <div>
+                <label>{{ form.subject.label }}</label>
+                {{ form.subject() }}
+            </div>
 
-        <div>
-            <label>{{ form.email.label }}</label>
-            {{ form.email() }}
-        </div>
+            <div>
+                <label>{{ form.message.label }}</label>
+                {{ form.message(rows=5) }}
+            </div>
 
-        <div>
-            <label>{{ form.subject.label }}</label>
-            {{ form.subject() }}
-        </div>
-
-        <div>
-            <label>{{ form.message.label }}</label>
-            {{ form.message(rows=5) }}
-        </div>
-
-        <div>
-            {{ form.submit() }}
-        </div>
-    </form>
+            <div>
+                {{ form.submit() }}
+            </div>
+        </form>
+    </main>
 </section>
 
 <script>

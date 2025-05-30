@@ -35,10 +35,7 @@ Nuestro objetivo es ofrecerles una segunda oportunidad, un hogar lleno de amor y
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
-        <div class="custom-alert {{ category }}">
-            {{ message }}
-            <button type="button" class="close-btn" aria-label="Cerrar">×</button>
-        </div>
+        <span class="{{ message.category }}">{{ message }}</span>
         {% endfor %}
         {% endif %}
         {% endwith %}

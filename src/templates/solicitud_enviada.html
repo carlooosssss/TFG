@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Solicitud Enviada</title>
+{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='sass/solicitud_enviada.css') }}">
+
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Tu solicitud de adopción ha sido enviada.</h1>
+    <p>Nos pondremos en contacto contigo pronto. Gracias por dar un paso hacia el cambio.</p>
+</section>
+{% endblock %}

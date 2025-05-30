@@ -12,7 +12,6 @@ perfil_bp = Blueprint('perfil', __name__)
 @login_required
 def perfil():
     user = current_user  
-
     form = PerfilForm(data={
         'nombre': user.nombre,
         'correo': user.email,

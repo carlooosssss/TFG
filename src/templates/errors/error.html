@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Error {{ error_code }}{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='sass/errors.css') }}">
+{% endblock %}
+{% block body %}
+<section class="error-page">
+    <h1 class="error">Error {{ error_code }}</h1>
+    <p class="error-message">{{ error_message }}</p>
+</section>
+{% endblock %}

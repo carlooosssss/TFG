@@ -111,142 +111,57 @@ header .header-container .hamburger {
   }
 }
 section {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-section .alert {
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-section .alert-info {
-  background-color: #e0f3ff;
-  color: #0275d8;
-}
-section .alert-success {
-  background-color: #d4edda;
-  color: #155724;
-}
-section .alert-danger {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-section h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color: #2c3e50;
-  text-align: center;
-}
-section a.btn {
-  padding: 0.5rem 1rem;
-  background-color: #2c3e50;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  display: inline-block;
-  transition: background-color 0.3s ease;
-}
-section a.btn:hover {
-  background-color: #2c3e50;
-}
-section table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-}
-section table thead {
-  background-color: #2c3e50;
-  color: white;
-}
-section table th, section table td {
-  text-align: left;
-  padding: 1rem;
-  color: #2c3e50;
-  border-bottom: 1px solid #2c3e50;
-}
-section table th {
-  color: white;
-  font-weight: 600;
-}
-section table td img {
-  width: 100px;
-  height: 100px;
-  border-radius: 8px;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-section table td form {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-items: center;
   flex-direction: column;
-  gap: 0.5rem;
+  height: 83.9vh;
 }
-section table td form a {
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  font-weight: 600;
-  text-decoration: none;
+section form {
+  background-color: white;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  border-color: #2c3e50;
+  outline: none;
 }
-section table td form button {
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  font-weight: 600;
+section form h2 {
+  text-align: center;
+  font-size: 25px;
+  font-weight: 900;
+  color: #2c3e50;
+  margin: 0;
 }
-section table td form .btn-success {
-  background-color: #28a745;
+section form input {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+section form button {
+  background-color: #2c3e50;
   color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  padding: 0.7rem;
+  border-radius: 8px;
+  transition: background-color 0.3s;
 }
-section table td form .btn-danger {
-  background-color: #dc3545;
-  color: white;
-}
-section table td form .btn-danger:hover {
-  background-color: #c82333;
+section form button:hover {
+  background-color: #2c3e50;
 }
 
-@media (max-width: 768px) {
-  table, thead, tbody, th, td, tr {
-    display: block;
-  }
-  thead {
-    display: none;
-  }
-  td {
-    position: relative;
-    padding-left: 50%;
-    text-align: right;
-  }
-  td::before {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    width: 45%;
-    padding-right: 1rem;
-    white-space: nowrap;
-    font-weight: bold;
-    color: #999;
-    content: attr(data-label);
-  }
-}
 footer {
   background-color: #2c3e50;
   padding: 1rem 2rem;
   text-align: center;
   font-size: 1rem;
-  color: #fff;
-  position: relative;
-  bottom: 0;
-}/*# sourceMappingURL=listar_animales.css.map */
+  color: white;
+}/*# sourceMappingURL=reset_request.css.map */

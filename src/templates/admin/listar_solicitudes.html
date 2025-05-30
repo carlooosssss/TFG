@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Administrar solicitudes {% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='sass/listar_solicitudes.css') }}">
+{% endblock %}
+
+{% block body %}
+<section>
+    <div class="container mt-5">
+        <h1 class="mb-4">Gestión de Solicitudes de adopcion</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <table class="table table-striped table-bordered align-middle text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>ID del Usuario</th>
+                    <th>Nombre del Animal</th>
+                    <th>Fecha de la Solicitud</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for solicitud in solicitudes %}
+                <tr>
+                    <td>{{ solicitud[0] }}</td>
+                    <td>{{ solicitud[1] }}</td>
+                    <td>{{ solicitud[2] }}</td>
+                    <td>{{ solicitud[3].strftime("%d/%m/%Y %H:%M") }}</td>   
+                    <td>
+                        {% if solicitud[4] == "pendiente" %}
+                        <div>
+                            <form action="{{ url_for('admin.aprobar_solicitud', id=solicitud[0]) }}" method="post" class="btn-aprobar">
+                                <button type="submit" class="btn-success">Aprobar</button>
+                            </form>
+                            <form action="{{ url_for('admin.rechazar_solicitud', id=solicitud[0]) }}" method="post" class="btn-rechazar">
+                                <button type="submit" class="btn-danger">Rechazar</button>
+                            </form>
+                        </div>
+                        {% elif solicitud[4] == "Aprobada" %}
+                            <span class="aprobada">Aprobada</span>
+                        {% elif solicitud[4] == "Rechazada" %}
+                            <span class="rechazada">Rechazada</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% endblock %}

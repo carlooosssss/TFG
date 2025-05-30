@@ -21,7 +21,7 @@
             <div class="animales">
                 {% for animal in animales %}
                 <div class="animal">
-                    <img src="{{ url_for('static', filename='images/' + animal.imagen) }}" alt="{{ animal.nombre }}">
+                    <img src="{{ animal.imagen }}" alt="{{ animal.nombre }}">
                     <div class="info-animal">
                         <h2>{{ animal.nombre }}</h2>
                         <p>{{ animal.descripcion }}</p>

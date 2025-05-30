@@ -8,44 +8,45 @@
 
 {% block body %}
 <section>
-
-  <form method="POST" class="perfil-form">
-      {{ form.hidden_tag() }}
-      
-      <h1>Perfil</h1>
-
-      <div>
-        <label for="nombre">{{ form.nombre.label }}</label>
-      {{ form.nombre }}
-      </div>
-      
-      <div>
-        <label for="correo">{{ form.correo.label }}</label>
-      {{ form.correo }}
-      </div>
-      
-      <div>
-        <label for="telefono">{{ form.telefono.label }}</label>
-        {{ form.telefono }}
-      </div>
-      
-      <div>
-        <label for="password">{{ form.password.label }}</label>
-        {{ form.password }}
-      </div>
-
-      {{ form.submit }}
-  </form>
-
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-      <ul class="custom-alert">
-        {% for category, message in messages %}
-          <li class="{{ category }}">{{ message }}</li>
-        {% endfor %}
-      </ul>
+      {% for category, message in messages %}
+        <span class="{{ category }}">{{ message }}</span>
+      {% endfor %}
     {% endif %}
   {% endwith %}
+  <main>
+    <div>
+      <img src="https://media.lordicon.com/icons/wired/lineal/44-avatar-user-in-circle.gif" alt="">
+    </div>
+    <form method="POST" class="perfil-form">
+        {{ form.hidden_tag() }}
+        
+        <h1>Perfil</h1>
+
+
+
+        <div>
+          <label for="nombre">{{ form.nombre.label }}</label>
+        {{ form.nombre }}
+        </div>
+        
+        <div>
+          <label for="correo">{{ form.correo.label }}</label>
+        {{ form.correo }}
+        </div>
+        
+        <div>
+          <label for="telefono">{{ form.telefono.label }}</label>
+          {{ form.telefono }}
+        </div>
+      
+        {{ form.submit }}
+
+        <p>¿Has olvidad tu contraseña? <a href="{{ url_for('reset_request') }}">Cambiar contraseña</a></p>
+    </form>
+
+  </main>
 </section>
 
 

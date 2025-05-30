@@ -1,38 +1,34 @@
-html, body {
+* {
   margin: 0;
   padding: 0;
-  height: 100%;
   box-sizing: border-box;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  color: #2c3e50;
   font-family: "Instrument Sans", sans-serif;
 }
 
 header {
   background-color: white;
   padding: 1rem 2rem;
-  min-height: 10vh;
+  height: 10vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 header .header-container {
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  height: 100%;
 }
 header .header-container .logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 200px;
-  max-height: 85px;
+  max-width: 130px;
+  max-height: 80px;
   overflow: hidden;
+  margin-top: 10px;
 }
 header .header-container .logo img {
   width: 100%;
@@ -52,19 +48,75 @@ header .header-container .main-nav ul li a {
   color: #2c3e50;
   font-weight: 900;
   font-size: 1.2rem;
-  padding: 0.5rem 0;
 }
 header .header-container .main-nav ul li a:hover {
   color: #2c3e50;
   border-bottom: 2px solid #2c3e50;
 }
+header .header-container .hamburger {
+  display: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: #2c3e50;
+  z-index: 101;
+  background: none;
+  border: none;
+  position: absolute;
+  top: 50%;
+  right: 2rem;
+  transform: translateY(-50%);
+}
 
+@media (max-width: 768px) {
+  .main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.95);
+    text-align: center;
+    padding: 4rem 2rem;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    pointer-events: none;
+  }
+  .main-nav ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .main-nav ul li {
+    margin-bottom: 4rem;
+  }
+  .main-nav ul li a {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    color: #2c3e50;
+  }
+  .main-nav.active {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  .hamburger {
+    display: flex !important;
+  }
+}
 section {
   flex: 1;
   display: flex;
   align-items: center;
   flex-direction: column;
   background-color: #fff;
+  height: 83.9vh;
   padding: 2rem 0;
 }
 section .contenedor {
