@@ -64,51 +64,7 @@ header
             position: absolute
             top: 50%
             right: 2rem
-            transform: translateY(-50%) // <-- Añade esto
-
-
-@media (max-width: 768px)
-    .main-nav
-        position: fixed
-        top: 0
-        left: 0
-        width: 100vw
-        height: 100vh
-        background-color: rgba(255, 255, 255, 0.95)
-        text-align: center
-        padding: 4rem 2rem
-        z-index: 100
-        display: flex
-        justify-content: center
-        align-items: center
-        flex-direction: column
-        transform: translateX(100%)
-        transition: transform 0.3s ease-in-out
-        pointer-events: none
-
-        ul
-            padding: 0
-            margin: 0
-            display: flex
-            flex-direction: column
-            justify-content: center
-            align-items: center
-
-            li
-                margin-bottom: 4rem
-
-                a
-                    font-size: clamp(2rem, 5vw, 3rem)
-                    font-weight: 900
-                    color: #2c3e50
-
-    .main-nav.active
-        transform: translateX(0)
-        pointer-events: auto
-
-    .hamburger
-        display: flex !important
-
+            transform: translateY(-50%)
 
 section
     display: flex
@@ -133,10 +89,11 @@ section
 
         .texto-banner
             position: absolute
-            top: 20%
+            top: 40%
             left: 5%
             max-width: 40%
             color: white
+            line-height: 1.5
 
             h2
                 font-size: clamp(1.5rem, 3vw, 2.5rem)
@@ -346,6 +303,125 @@ section
                 font-size: 1.1rem
                 line-height: 2
                 color: #2c3e50
+
+@media (max-width: 768px)
+    *
+        margin: 0
+        padding: 0
+        box-sizing: border-box
+        font-family: 'Instrument Sans', sans-serif
+
+    header
+        padding: 1rem
+        height: auto
+        flex-direction: column
+        align-items: flex-start
+
+        .header-container
+            display: flex
+            width: 100%
+            flex-direction: column
+            justify-content: center
+            align-items: flex-start
+
+            .main-nav
+                position: fixed
+                top: 0
+                left: 0
+                width: 100vw
+                height: 100vh
+                background-color: rgba(255, 255, 255, 0.95)
+                padding: 4rem 2rem
+                z-index: 100
+                display: flex
+                justify-content: center
+                align-items: center
+                flex-direction: column
+                transform: translateX(100%)
+                transition: transform 0.3s ease-in-out
+                pointer-events: none
+                text-align: center
+
+                ul
+                    flex-direction: column
+                    gap: 3rem
+
+                    li
+                        a
+                            font-size: clamp(2rem, 5vw, 3rem)
+
+            .main-nav.active
+                transform: translateX(0)
+                pointer-events: auto
+
+            .hamburger
+                display: flex !important
+
+    section
+        .banner
+            height: 90vh
+
+            .texto-banner
+                top: 60%
+                left: 5%
+                max-width: 90%
+                line-height: 1.5
+
+                p, span
+                    font-size: 2rem !important
+        .seccion1
+            padding: 2rem 1rem
+
+            .scrollAnimales
+                gap: 1rem
+
+            .animal
+                width: 180px
+                padding: 0.75rem
+
+        .seccion2
+            padding: 2rem 1rem
+
+            h1
+                text-align: center
+
+            p
+                font-size: 1rem
+                text-align: justify
+
+            .pasos
+                padding-left: 1rem
+
+                li
+                    font-size: 1rem
+
+            .botones
+                flex-direction: column
+                align-items: center
+
+        .seccion3
+            padding: 2rem 1rem
+
+            h1
+                text-align: center
+
+            p
+                text-align: justify
+
+            .imagenes
+                flex-direction: column
+                align-items: center
+
+        .seccion4
+            flex-direction: column
+            padding: 2rem 1rem
+
+            .maps
+                height: 250px
+
+            .p
+                p
+                    font-size: 1rem
 
 footer
     background-color: #2c3e50

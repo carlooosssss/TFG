@@ -64,50 +64,9 @@ header
             position: absolute
             top: 50%
             right: 2rem
-            transform: translateY(-50%) // <-- Añade esto
+            transform: translateY(-50%)
 
 
-@media (max-width: 768px)
-    .main-nav
-        position: fixed
-        top: 0
-        left: 0
-        width: 100vw
-        height: 100vh
-        background-color: rgba(255, 255, 255, 0.95)
-        text-align: center
-        padding: 4rem 2rem
-        z-index: 100
-        display: flex
-        justify-content: center
-        align-items: center
-        flex-direction: column
-        transform: translateX(100%)
-        transition: transform 0.3s ease-in-out
-        pointer-events: none
-
-        ul
-            padding: 0
-            margin: 0
-            display: flex
-            flex-direction: column
-            justify-content: center
-            align-items: center
-
-            li
-                margin-bottom: 4rem
-
-                a
-                    font-size: clamp(2rem, 5vw, 3rem)
-                    font-weight: 900
-                    color: #2c3e50
-
-    .main-nav.active
-        transform: translateX(0)
-        pointer-events: auto
-
-    .hamburger
-        display: flex !important
 
 
 section
@@ -218,7 +177,7 @@ form
     span
         font-size: 2rem
         font-weight: 900
-        color: #09ff00
+        color: #059c00
         text-align: center
         margin-bottom: 1rem
 
@@ -294,7 +253,111 @@ form
 
         &:hover
             background-color: #1a252f
+@media (max-width: 768px)
+    *
+        margin: 0
+        padding: 0
+        box-sizing: border-box
+        font-family: 'Instrument Sans', sans-serif
 
+    header
+        padding: 1rem
+        height: auto
+        flex-direction: column
+        align-items: flex-start
+
+        .header-container
+            display: flex
+            width: 100%
+            flex-direction: column
+            justify-content: center
+            align-items: flex-start
+
+            .main-nav
+                position: fixed
+                top: 0
+                left: 0
+                width: 100vw
+                height: 100vh
+                background-color: rgba(255, 255, 255, 0.95)
+                padding: 4rem 2rem
+                z-index: 100
+                display: flex
+                justify-content: center
+                align-items: center
+                flex-direction: column
+                transform: translateX(100%)
+                transition: transform 0.3s ease-in-out
+                pointer-events: none
+                text-align: center
+
+                ul
+                    flex-direction: column
+                    gap: 3rem
+
+                    li
+                        a
+                            font-size: clamp(2rem, 5vw, 3rem)
+
+            .main-nav.active
+                transform: translateX(0)
+                pointer-events: auto
+
+            .hamburger
+                display: flex !important
+
+    section
+        .banner
+            height: 90vh
+
+            .texto-banner
+                top: 60%
+                left: 5%
+                max-width: 90%
+
+                p, span
+                    font-size: 2rem !important
+
+        .seccion1
+            padding: 0rem 1rem
+            text-align: center
+
+            .descripcion
+                padding: 0 1rem
+                font-size: 1rem
+                line-height: 2
+            .telefono
+                padding: 0 1rem
+                font-size: 1rem
+                text-align: right
+
+            .texto-destacado
+                h2
+                    font-size: 2rem
+                p
+                    font-size: 1.2rem
+
+    form
+        padding: 1.5rem
+        margin: 1.5rem 0
+        box-shadow: none
+
+        h2
+            font-size: 1.5rem
+
+        span
+            font-size: 1.5rem
+
+        .formulario, .form-group
+            padding: 0 1rem
+
+        input, select
+            font-size: 1rem
+
+        #card-fields, #paypal-fields, #bank-fields
+            gap: 0.5rem
+
+    
 footer
     height: 5vh
     background-color: #2c3e50

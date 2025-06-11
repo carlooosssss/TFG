@@ -139,6 +139,7 @@ def aprobar_solicitud(id):
 
     msg = Message(
         subject="Solicitud de adopción aprobada",
+        sender='tunuevamascotatfg@gmail.com',
         recipients=[email_usuario],
         body=f"Hola {nombre_usuario},\n\n¡Tu solicitud de adopción ha sido aprobada! Pronto nos pondremos en contacto contigo para continuar el proceso.\n\nGracias."
     )
@@ -183,7 +184,7 @@ def rechazar_solicitud(id):
     msg = Message(
         subject="Solicitud de adopción rechazada",
         recipients=[email_usuario],
-        sender="carlosrs2210.crs@gmail.com",
+        sender="tunuevamascotatfg@gmail.com",
         body=f"Hola {nombre_usuario},\n\nLamentablemente, tu solicitud de adopción ha sido rechazada. Puedes intentarlo de nuevo más adelante o consultar con el equipo para más detalles.\n\nGracias."
     )
 

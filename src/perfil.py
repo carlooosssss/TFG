@@ -24,9 +24,13 @@ def perfil():
         telefono = form.telefono.data
         password = form.password.data
 
-        hashed_password = generate_password_hash(password) if password else None
+        existing_user = ModelUser.get_by_email(mysql, correo)
 
-        ModelUser.update_user_data(mysql, user.id, nombre, correo, telefono, hashed_password)
+        if existing_user and existing_user.id != user.id:
+            flash("Ese correo ya está registrado por otro usuario.", "danger")
+            return render_template('perfil.html', form=form)
+
+        ModelUser.update_user_data(mysql, user.id, nombre, correo, telefono, password=None)
         flash("Perfil actualizado correctamente", "success")
         return redirect(url_for('perfil.perfil'))
 

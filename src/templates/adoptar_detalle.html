@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>{{ animal.nombre }} - Detalle</title>
+<title> {{ animal.nombre }} - Detalle </title>
 {% endblock %}
 
 {% block customCSS %}
@@ -18,7 +18,7 @@
       <p class="detalle-descripcion">{{ animal.descripcion }}</p>
       <div class="botones">
         <a href="{{ url_for('adoptar') }}" class="btn-volver"> Volver a la adopción</a>
-        <a href="{{ url_for('solicitar_adopcion', animal_nombre=animal.nombre) }}" class="btn-adoptar">Solicitar adopcion</a>
+        <a href="{{ url_for('solicitar_adopcion', animal_id=animal.id) }}" class="btn-adoptar">Solicitar adopcion</a>
       </div>
     </div>
   </section>

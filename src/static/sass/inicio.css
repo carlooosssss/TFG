@@ -67,49 +67,6 @@ header .header-container .hamburger {
   transform: translateY(-50%);
 }
 
-@media (max-width: 768px) {
-  .main-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.95);
-    text-align: center;
-    padding: 4rem 2rem;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-    pointer-events: none;
-  }
-  .main-nav ul {
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .main-nav ul li {
-    margin-bottom: 4rem;
-  }
-  .main-nav ul li a {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 900;
-    color: #2c3e50;
-  }
-  .main-nav.active {
-    transform: translateX(0);
-    pointer-events: auto;
-  }
-  .hamburger {
-    display: flex !important;
-  }
-}
 section {
   display: flex;
   flex-direction: column;
@@ -134,10 +91,11 @@ section .banner img {
 }
 section .banner .texto-banner {
   position: absolute;
-  top: 20%;
+  top: 40%;
   left: 5%;
   max-width: 40%;
   color: white;
+  line-height: 1.5;
 }
 section .banner .texto-banner h2 {
   font-size: clamp(1.5rem, 3vw, 2.5rem);
@@ -353,6 +311,124 @@ section .seccion4 .p p {
   color: #2c3e50;
 }
 
+@media (max-width: 768px) {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Instrument Sans", sans-serif;
+  }
+  header {
+    padding: 1rem;
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  header .header-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  header .header-container .main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 4rem 2rem;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    pointer-events: none;
+    text-align: center;
+  }
+  header .header-container .main-nav ul {
+    flex-direction: column;
+    gap: 3rem;
+  }
+  header .header-container .main-nav ul li a {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+  header .header-container .main-nav.active {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  header .header-container .hamburger {
+    display: flex !important;
+  }
+  section .banner {
+    height: 90vh;
+  }
+  section .banner .texto-banner {
+    top: 60%;
+    left: 5%;
+    max-width: 90%;
+    line-height: 1.5;
+  }
+  section .banner .texto-banner p, section .banner .texto-banner span {
+    font-size: 2rem !important;
+  }
+  section .seccion1 {
+    padding: 2rem 1rem;
+  }
+  section .seccion1 .scrollAnimales {
+    gap: 1rem;
+  }
+  section .seccion1 .animal {
+    width: 180px;
+    padding: 0.75rem;
+  }
+  section .seccion2 {
+    padding: 2rem 1rem;
+  }
+  section .seccion2 h1 {
+    text-align: center;
+  }
+  section .seccion2 p {
+    font-size: 1rem;
+    text-align: justify;
+  }
+  section .seccion2 .pasos {
+    padding-left: 1rem;
+  }
+  section .seccion2 .pasos li {
+    font-size: 1rem;
+  }
+  section .seccion2 .botones {
+    flex-direction: column;
+    align-items: center;
+  }
+  section .seccion3 {
+    padding: 2rem 1rem;
+  }
+  section .seccion3 h1 {
+    text-align: center;
+  }
+  section .seccion3 p {
+    text-align: justify;
+  }
+  section .seccion3 .imagenes {
+    flex-direction: column;
+    align-items: center;
+  }
+  section .seccion4 {
+    flex-direction: column;
+    padding: 2rem 1rem;
+  }
+  section .seccion4 .maps {
+    height: 250px;
+  }
+  section .seccion4 .p p {
+    font-size: 1rem;
+  }
+}
 footer {
   background-color: #2c3e50;
   padding: 1rem 2rem;

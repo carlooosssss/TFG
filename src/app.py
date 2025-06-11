@@ -6,7 +6,7 @@ from models.modelUser import ModelUser
 import os
 from extensions import mysql
 from dotenv import load_dotenv
-from flask_mail import Mail, Message
+from flask_mail import Message
 from extensions import mail
 from tokens import generate_token, confirm_token
 from datetime import datetime
@@ -66,7 +66,6 @@ def inicio():
             'descripcion': row[2],
             'imagen': row[3]
         })
-    
 
     return render_template("inicio.html", animales=animales_dict)
 
@@ -90,7 +89,6 @@ def login():
             else:
                 flash("Contraseña incorrecta", "error")
                 return redirect(url_for('login'))
-
 
         else:
             flash("Usuario no encontrado", "error")
@@ -179,16 +177,16 @@ def adoptar_detalle(nombre):
         return "Animal no encontrado", 404
     return render_template('adoptar_detalle.html', animal=animal)
 
-@app.route('/solicitar_adopcion/<animal_nombre>')
+@app.route('/solicitar_adopcion/<int:animal_id>')
 @login_required
-def solicitar_adopcion(animal_nombre):
+def solicitar_adopcion(animal_id):
     usuario_id = current_user.id
 
     cur = mysql.connection.cursor()
     cur.execute("""
         SELECT * FROM solicitudes 
-        WHERE usuario_id = %s AND nombre_animal = %s
-    """, (usuario_id, animal_nombre))
+        WHERE usuario_id = %s AND animal_id = %s
+    """, (usuario_id, animal_id))
     existe = cur.fetchone()
 
     if existe:
@@ -197,9 +195,9 @@ def solicitar_adopcion(animal_nombre):
         return redirect(url_for('adoptar')) 
 
     cur.execute("""
-        INSERT INTO solicitudes (usuario_id, nombre_animal, fecha)
+        INSERT INTO solicitudes (usuario_id, animal_id, fecha)
         VALUES (%s, %s, %s)
-    """, (usuario_id, animal_nombre, datetime.now()))
+    """, (usuario_id, animal_id, datetime.now()))
     mysql.connection.commit()
     cur.close()
 
@@ -241,9 +239,9 @@ def contacto():
 
     if form.validate_on_submit():
         msg = Message(
-            subject=form.subject.data,
-            sender=form.email.data,
-            recipients=['carlosrs2210.crs@gmail.com'],
+            subject= form.subject.data,
+            sender= 'tunuevamascotatfg@gmail.com',
+            recipients=['tunuevamascotatfg@gmail.com'],
             body=f"De: {form.name.data} <{form.email.data}>\n\n{form.message.data}"
         )
 
@@ -271,7 +269,7 @@ def reset_request():
             token = generate_token(email)
             reset_url = url_for('reset_token', token=token, _external=True)
             msg = Message('Restablecer contraseña', 
-                sender='carlosrs2210.crs@gmail.com',
+                sender='tunuevamascotatfg@gmail.com',
                 recipients=[email])
             msg.body = f'Para restablecer tu contraseña, haz clic en el siguiente enlace:\n{reset_url}\n\nEste enlace expira en 20 minutos.'
             mail.send(msg)

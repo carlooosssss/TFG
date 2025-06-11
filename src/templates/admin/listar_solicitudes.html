@@ -23,7 +23,7 @@
                 <tr>
                     <th>ID</th>
                     <th>ID del Usuario</th>
-                    <th>Nombre del Animal</th>
+                    <th>ID del Animal</th>
                     <th>Fecha de la Solicitud</th>
                     <th>Acciones</th>
                 </tr>
@@ -33,10 +33,10 @@
                 <tr>
                     <td>{{ solicitud[0] }}</td>
                     <td>{{ solicitud[1] }}</td>
-                    <td>{{ solicitud[2] }}</td>
-                    <td>{{ solicitud[3].strftime("%d/%m/%Y %H:%M") }}</td>   
+                    <td>{{ solicitud[4] }}</td>
+                    <td>{{ solicitud[2].strftime("%d/%m/%Y %H:%M") }}</td>   
                     <td>
-                        {% if solicitud[4] == "pendiente" %}
+                        {% if solicitud[3] == "pendiente" %}
                         <div>
                             <form action="{{ url_for('admin.aprobar_solicitud', id=solicitud[0]) }}" method="post" class="btn-aprobar">
                                 <button type="submit" class="btn-success">Aprobar</button>
@@ -45,9 +45,9 @@
                                 <button type="submit" class="btn-danger">Rechazar</button>
                             </form>
                         </div>
-                        {% elif solicitud[4] == "Aprobada" %}
+                        {% elif solicitud[3] == "Aprobada" %}
                             <span class="aprobada">Aprobada</span>
-                        {% elif solicitud[4] == "Rechazada" %}
+                        {% elif solicitud[3] == "Rechazada" %}
                             <span class="rechazada">Rechazada</span>
                         {% endif %}
                     </td>

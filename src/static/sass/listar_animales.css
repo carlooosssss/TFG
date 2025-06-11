@@ -114,6 +114,7 @@ section {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  height: auto;
 }
 section .alert {
   padding: 1rem;
@@ -247,6 +248,7 @@ footer {
   text-align: center;
   font-size: 1rem;
   color: #fff;
-  position: relative;
+  position: abdsolute;
+  width: 100%;
   bottom: 0;
 }/*# sourceMappingURL=listar_animales.css.map */
